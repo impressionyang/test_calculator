@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1537962732 source:/home/impressyang/workspace/C++/test_calculator/main.cpp
+	<iostream>
+	"calculator.h"
+
+1537962917 /home/impressyang/workspace/C++/test_calculator/calculator.h
+	<string>
+	<iostream>
+	<stack>
+
+1537963333 source:/home/impressyang/workspace/C++/test_calculator/calculator.cpp
+	"calculator.h"
+
