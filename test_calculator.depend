@@ -1,14 +1,16 @@
 # depslib dependency file v1.0
-1537962732 source:/home/impressyang/workspace/C++/test_calculator/main.cpp
+1538037080 source:/home/impressyang/workspace/C++/test_calculator/main.cpp
 	<iostream>
 	"calculator.h"
+	<string>
 
-1537962917 /home/impressyang/workspace/C++/test_calculator/calculator.h
+1538036188 /home/impressyang/workspace/C++/test_calculator/calculator.h
 	<string>
 	<iostream>
 	<stack>
+	<sstream>
 
-1537963333 source:/home/impressyang/workspace/C++/test_calculator/calculator.cpp
+1538037113 source:/home/impressyang/workspace/C++/test_calculator/calculator.cpp
 	"calculator.h"
 
 1538024541 source:/home/impressionyang/workspace/cppPrograms/test_calculator/calculator.cpp

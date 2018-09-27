@@ -1,5 +1,14 @@
 #include "calculator.h"
 
+double string_double(string num_str){
+    double result=0;
+    istringstream convert(num_str);
+    convert >> result;
+
+    return result;
+}
+
+
 Calculator::Calculator(){
     OPND=new stack<double>();
     OPTR=new stack<char>();
@@ -7,27 +16,62 @@ Calculator::Calculator(){
 }
 
 
-void Calculator::get_result(){
+double Calculator::get_result(string get){
+    string *c=format(get);
     OPTR->push('#');
     string input;
-    cin>>input;
-    char c='1';//default
-    //sscanf(input,"%c",c);
-    while(c!='#'||OPTR->top()!='#'){
-        if(!isSymble(c)){
-            double temp;
-            //sscanf(c,"%lf",temp);
-            OPND->push(temp);
+    double result=0;
+    char theta;
+    double a;
+    double b;
 
-            cin>>input;
-            //sscanf(input,"%c",c);
-        }
-    }
+    int i=0;
+    while(c[i][0]!='#'||OPTR->top()!='#'){
+        //不是运算符则进栈
+        if(!isSymble(c[i][0])){
+            //cout<<"不是运算符则进栈"<<c[i]<<endl;
+            OPND->push(string_double(c[i]));
+            i++;
+        }else{
+            //是运算符的话就必定会只有一个元素
+            //cout<<"是运算符的话就必定会只有一个元素"<<c[i]<<endl;
+            switch(Precede(OPTR->top(),c[i][0])){
+            case '<':
+                OPTR->push(c[i][0]);
+                i++;
+                break;
+            case '=':
+                //result=OPTR.top();
+                OPTR->pop();
+                i++;
+                break;
+            case '>':
+                theta=OPTR->top();
+                OPTR->pop();
+
+                b=OPND->top();
+                OPND->pop();
+
+                a=OPND->top();
+                OPND->pop();
+
+                OPND->push(Operate(a,b,theta));
+                //cout<<"目前结果:"<<OPND->top()<<endl;
+                break;
+            }//switch
+        }//if
+    }//while
+
+    result=OPND->top();
+
+    return result;
 
 }
 
+
+
 bool Calculator::isSymble(char get){
-    if(get=='+'||get=='-'||get=='*'||get=='/'){
+    if(get=='+'||get=='-'||get=='*'||get=='/'||get=='('||get==')'||get=='='||get=='#'){
         return true;
     }
 
@@ -59,7 +103,7 @@ string * Calculator::format(string get){
 }
 
 
-bool Calculator::Precede(char first,char second){
+char Calculator::Precede(char first,char second){
     switch(first){
     case '+':
         switch(second){
@@ -245,7 +289,7 @@ bool Calculator::Precede(char first,char second){
 
         break;
     }
-    return false;
+    return '0';
 }
 
 
