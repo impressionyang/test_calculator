@@ -11,16 +11,16 @@ void Calculator::get_result(){
     OPTR->push('#');
     string input;
     cin>>input;
-    char c;
-    sscanf(input,"%c",c);
+    char c='1';//default
+    //sscanf(input,"%c",c);
     while(c!='#'||OPTR->top()!='#'){
         if(!isSymble(c)){
             double temp;
-            sscanf(c,"%lf",temp);
+            //sscanf(c,"%lf",temp);
             OPND->push(temp);
 
             cin>>input;
-            sscanf(input,"%c",c);
+            //sscanf(input,"%c",c);
         }
     }
 
@@ -31,7 +31,31 @@ bool Calculator::isSymble(char get){
         return true;
     }
 
-    reutn false;
+    return false;
+}
+
+string * Calculator::format(string get){
+    string *afterformat=new string[get.length()];
+    string temp;
+    int j=0;
+    for(int i=0;i<(int)get.length();i++){
+        if(get[i]=='+'||get[i]=='-'||get[i]=='*'||get[i]=='/'||get[i]=='('||get[i]==')'||get[i]=='#'||get[i]=='='){
+            if(!temp.empty()){
+                afterformat[j]=temp;
+                //cout<<"temp:"<<temp<<endl;
+                temp.erase();
+                j++;
+
+            }
+
+            afterformat[j]=get[i];
+            j++;
+        }else{
+            temp.append(1,get[i]);
+        }
+
+    }
+    return afterformat;
 }
 
 
@@ -230,13 +254,13 @@ double Calculator::Operate(double a,double b,char operation){
     case '+':
         return a+b;
         break;
-    case '+':
+    case '-':
         return a-b;
         break;
-    case '+':
+    case '*':
         return a*b;
         break;
-    case '+':
+    case '/':
         return a/b;
         break;
     }

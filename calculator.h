@@ -12,6 +12,7 @@ public:
     Calculator();
     void get_result();  //结果存到result里面
     void test();
+    string *format(string); //将字符串算是按照规则转换成字符串数组
 private:
     string test2;
     stack<char> *OPTR; //寄存运算符
